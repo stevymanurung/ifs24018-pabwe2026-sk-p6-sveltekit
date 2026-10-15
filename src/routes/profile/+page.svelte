@@ -1,0 +1,1 @@
+<svelte:head><title>Profil — Delcom Courses</title></svelte:head><section><h1>Profil Saya</h1><p>Halaman profil, foto, dan perubahan kata sandi perlu dihubungkan dengan modul users dari latihan SvelteKit 2.2.</p></section>

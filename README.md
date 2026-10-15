@@ -11,8 +11,13 @@ Proyek awal SvelteKit + TypeScript + Svelte 5 untuk username `ifs24018`.
 6. Jalankan `bun run dev`, lalu buka http://localhost:3005.
 
 ## Build
-- `bun run build`
+- `bun run --bun build`
 - `bun start`
+
+Catatan: gunakan Bun 1.4 atau lebih baru untuk `@sveltejs/adapter-bun`.
+
+## Jika `bun install` sebelumnya gagal
+ZIP ini memperbarui versi `@sveltejs/adapter-bun` ke `^1.0.0` dan memperbarui konfigurasi adapter pada `vite.config.ts`. Setelah mengekstrak ZIP, jalankan `bun install` di folder proyek.
 
 ## Catatan penting
 - Proyek ini adalah scaffold awal dengan routing utama, helper HTTP, API kursus, store, dan halaman dasar.
