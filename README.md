@@ -1,25 +1,37 @@
-# Delcom Courses — PABWE P6
+# ifs24018-pabwe2026-sk-p6-sveltekit
 
-Proyek awal SvelteKit + TypeScript + Svelte 5 untuk username `ifs24018`.
+Aplikasi praktikum Delcom Courses menggunakan SvelteKit, TypeScript, Svelte 5, dan API Delcom.
+
+## Konfigurasi
+File `.env` memakai base URL yang diminta modul:
+
+```env
+VITE_DELCOM_BASEURL=https://open-api.delcom.org/api/v1
+APP_PORT=3005
+```
 
 ## Menjalankan
-1. Install Bun.
-2. Ekstrak ZIP.
-3. Buka terminal di folder proyek.
-4. Jalankan `bun install`.
-5. Salin `.env.example` menjadi `.env` (atau gunakan `.env` yang sudah disediakan).
-6. Jalankan `bun run dev`, lalu buka http://localhost:3005.
 
-## Build
-- `bun run --bun build`
-- `bun start`
+```bash
+bun install
+bun run dev
+```
 
-Catatan: gunakan Bun 1.4 atau lebih baru untuk `@sveltejs/adapter-bun`.
+Buka `http://localhost:3005`.
 
-## Jika `bun install` sebelumnya gagal
-ZIP ini memperbarui versi `@sveltejs/adapter-bun` ke `^1.0.0` dan memperbarui konfigurasi adapter pada `vite.config.ts`. Setelah mengekstrak ZIP, jalankan `bun install` di folder proyek.
+Untuk build produksi:
 
-## Catatan penting
-- Proyek ini adalah scaffold awal dengan routing utama, helper HTTP, API kursus, store, dan halaman dasar.
-- Endpoint dan format respons API harus dicocokkan lagi dengan dokumentasi Delcom Open API dan akun uji.
-- Fitur autentikasi, profil, upload, semua modal, dan pengujian coverage 100% masih perlu diselaraskan dengan file latihan SvelteKit 2.2 yang digunakan di kelas. Jangan menganggap coverage 100% sebelum menjalankan dan memeriksa laporan.
+```bash
+bun run build
+bun start
+```
+
+## Implementasi yang tersedia
+- Login `POST /auth/login` dan register `POST /auth/register`.
+- Token disimpan pada `localStorage` dan dipakai sebagai `Authorization: Bearer ...` untuk request terautentikasi.
+- Profil dan daftar pengguna melalui `userApi.ts`, termasuk edit profil, upload foto, dan ubah kata sandi.
+- API kursus untuk daftar/detail/tambah/ubah/hapus, sampul, peserta, rating, dan materi.
+- Materi memakai detail `GET /courses/-/contents/:id` dan status belajar `0/1`.
+
+## Catatan
+Endpoint API pengguna dan bentuk respons bisa berbeda dari versi server yang aktif. Jika server mengembalikan `404` atau nama field berbeda, cocokkan path dan field dengan dokumentasi API Delcom yang dipakai dosen. Belum ada klaim bahwa semua pengujian coverage 100% sudah lulus; jalankan `bun run check`, `bun run test:coverage`, dan `bun run build` lalu perbaiki pesan error yang muncul.
