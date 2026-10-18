@@ -45,3 +45,11 @@ Untuk mengubah base URL lokal, salin `.env.example` menjadi `.env` dan sesuaikan
 - Profil dan daftar pengguna.
 - Daftar/detail kursus dan materi.
 - API kursus, materi, peserta, rating, dan status belajar.
+
+
+## Jenkins and SonarQube
+
+- `Jenkinsfile` runs dependency installation, Vitest coverage, Svelte checks, production build, and SonarQube analysis.
+- The Jenkins controller must have a NodeJS tool installation named `NodeJS 24`, the SonarQube Scanner tool available on PATH, and a SonarQube server installation named `SonarQube` configured in **Manage Jenkins → System**. If your Jenkins uses different names, update the matching names in `Jenkinsfile`.
+- Configure the SonarQube project key to match `sonar.projectKey` in `sonar-project.properties`.
+- Test setup imports `@testing-library/jest-dom/vitest`, the supported integration for Vitest.
