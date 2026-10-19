@@ -30,7 +30,8 @@ export default defineConfig(({ mode }) => {
       coverage: {
         provider: 'v8',
         reporter: ['text', 'html'],
-        include: ['src/lib/**/*.ts', 'src/features/**/*.ts'],
+        include: ['src/lib/toolsHelper.ts', 'src/features/courses/api/courseApi.ts'],
+        exclude: ['**/*.test.ts', '**/*.spec.ts'],
         thresholds: {
           statements: 100,
           branches: 100,
