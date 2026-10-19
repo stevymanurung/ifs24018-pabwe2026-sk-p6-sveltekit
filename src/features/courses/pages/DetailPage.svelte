@@ -7,7 +7,7 @@
   import { getErrorMessage } from '$lib/toolsHelper';
   import { authToken, authProfile } from '$features/auth/authStore';
 
-  let course: Course | null = $state(null);
+  let course = $state<Course | null>(null);
   let loading = $state(true);
   let error = $state('');
   let title = $state('');

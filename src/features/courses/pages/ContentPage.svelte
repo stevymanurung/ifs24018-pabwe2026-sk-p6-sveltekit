@@ -4,7 +4,7 @@
   import { ArrowLeft, Video } from 'lucide-svelte';
   import { courseApi, type CourseContent } from '../api/courseApi';
   import { getYouTubeEmbedUrl, getErrorMessage } from '$lib/toolsHelper';
-  let content: CourseContent | null = $state(null);
+  let content = $state<CourseContent | null>(null);
   let loading = $state(true);
   let error = $state('');
   let completed = $state(false);

@@ -27,10 +27,13 @@ describe('courseApi requests', () => {
   it('uploads a cover as FormData', () => {
     const file = new File(['image'], 'cover.png', { type: 'image/png' });
     courseApi.uploadCover(4, file, 'token');
-    const [path, options, token] = requestMock.mock.calls.at(-1)!;
+    const call = requestMock.mock.calls.at(-1);
+    expect(call).toBeDefined();
+    if (!call) throw new Error('Expected courseApi.uploadCover to call apiRequest');
+    const [path, options, token] = call;
     expect(path).toBe('/courses/4/cover');
-    expect(options.method).toBe('POST');
-    expect((options.body as FormData).get('cover')).toBe(file);
+    expect(options?.method).toBe('POST');
+    expect((options?.body as FormData).get('cover')).toBe(file);
     expect(token).toBe('token');
   });
   it('joins and leaves a course', () => {

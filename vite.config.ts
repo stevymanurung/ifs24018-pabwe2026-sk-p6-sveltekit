@@ -1,14 +1,13 @@
 
-import { fileURLToPath, URL } from 'node:url';
 import { sveltekit } from '@sveltejs/kit/vite';
 import { defineConfig } from 'vitest/config';
 import { loadEnv } from 'vite';
-import process from 'node:process';
 
 export default defineConfig(({ mode }) => {
-  const fileEnv = loadEnv(mode, process.cwd(), '');
+  const runtimeProcess = (globalThis as typeof globalThis & { process?: { cwd?: () => string; env?: Record<string, string | undefined> } }).process;
+  const fileEnv = loadEnv(mode, runtimeProcess?.cwd?.() ?? '.', '');
   const apiBaseUrl = fileEnv.VITE_DELCOM_BASEURL || 'https://open-api.delcom.org/api/v1';
-  const apiRequestBase = process.env.VERCEL ? '/delcom-api' : apiBaseUrl;
+  const apiRequestBase = runtimeProcess?.env?.VERCEL ? '/delcom-api' : apiBaseUrl;
 
   return {
     plugins: [sveltekit()],
@@ -17,9 +16,7 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '$features': fileURLToPath(
-          new URL('./src/features', import.meta.url)
-        )
+        '$features': new URL('./src/features', import.meta.url).pathname
       }
     },
     test: {
@@ -29,7 +26,7 @@ export default defineConfig(({ mode }) => {
       include: ['src/**/*.{test,spec}.{js,ts}'],
       coverage: {
         provider: 'v8',
-        reporter: ['text', 'html'],
+        reporter: ['text', 'html', 'lcov'],
         include: ['src/lib/toolsHelper.ts', 'src/features/courses/api/courseApi.ts'],
         exclude: ['**/*.test.ts', '**/*.spec.ts'],
         thresholds: {
