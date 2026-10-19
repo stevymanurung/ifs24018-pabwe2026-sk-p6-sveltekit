@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'node:24-bookworm'
+      args '-u root:root'
+    }
+  }
 
   options {
     timestamps()
@@ -7,12 +12,11 @@ pipeline {
     skipDefaultCheckout(false)
   }
 
-
   stages {
     stage('Check Runtime and Install Dependencies') {
       steps {
         sh '''set -eu
-          echo '=== Checking Node.js and npm available on the Jenkins agent ==='
+          echo '=== Node.js runtime inside Node 24 container ==='
           node --version
           npm --version
           if [ -f package-lock.json ]; then npm ci; else npm install; fi
@@ -22,9 +26,7 @@ pipeline {
 
     stage('Tests with Coverage') {
       steps {
-        sh '''set -eu
-          npm run test:coverage
-        '''
+        sh 'npm run test:coverage'
       }
       post {
         always {
@@ -49,7 +51,7 @@ pipeline {
       steps {
         script {
           withSonarQubeEnv('SonarQube') {
-            sh 'sonar-scanner'
+            sh 'npx --yes @sonar/scan'
           }
         }
       }
