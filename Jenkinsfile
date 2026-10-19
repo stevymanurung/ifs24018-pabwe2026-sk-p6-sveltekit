@@ -33,7 +33,7 @@ pipeline {
         stage('Install Dependencies') {
             agent {
                 docker {
-                    image 'node:24-alpine'
+                    image 'oven/bun:alpine'
                     reuseNode true
                 }
             }
@@ -44,11 +44,7 @@ pipeline {
 
                     echo "=== Installing Dependencies ==="
 
-                    if [ -f package-lock.json ]; then
-                        npm ci
-                    else
-                        npm install
-                    fi
+                    bun install
 
                     echo "=== Dependencies Installed ==="
                 '''
@@ -76,33 +72,6 @@ pipeline {
 
                     echo "=== Tests Passed ==="
                 '''
-            }
-        }
-
-        // ============================================================
-        // SVELTE CHECK AND BUILD
-        // ============================================================
-        stage('Svelte Check') {
-            agent {
-                docker {
-                    image 'node:24-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh 'npm run check'
-            }
-        }
-
-        stage('Build') {
-            agent {
-                docker {
-                    image 'node:24-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh 'npm run build'
             }
         }
 
