@@ -8,7 +8,7 @@ Paket ini mempertahankan source aplikasi Stevy dan menyesuaikan pipeline ke pola
 - Coverage reporter menyertakan `lcov`, agar SonarQube dapat membaca `coverage/lcov.info`.
 - Sonar project key/name menggunakan `ifs24018-pabwe2026-sk-p6-sveltekit`.
 - `toolsHelper.ts` menghilangkan fallback nullish yang tidak dapat tercapai setelah pemeriksaan prefix, untuk menghapus branch yang tidak teruji. Test mencakup empty embed/shorts IDs.
-- Coverage threshold tetap 100% untuk statements, branches, functions, lines pada dua modul target.
+- Coverage threshold 100% untuk statements, branches, functions, lines di seluruh modul aplikasi (apiHelper, toolsHelper, useInput, authApi, authStore, courseApi, coursesStore, userApi, hooks.server).
 
 ## Sebelum push
 1. Pastikan Jenkins memiliki Docker Pipeline, SonarQube Scanner integration, Quality Gate webhook, Warnings NG/SARIF, Pipeline Utility Steps, dan akses Docker yang digunakan pipeline.

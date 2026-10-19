@@ -1,7 +1,5 @@
-import { env } from '$env/dynamic/public';
-
 export type ApiEnvelope<T> = { status?: string; message?: string; data?: T };
-const baseUrl = (import.meta.env.VITE_DELCOM_API_URL || env.PUBLIC_DELCOM_BASEURL || import.meta.env.VITE_DELCOM_BASEURL || 'https://open-api.delcom.org/api/v1').replace(/\/$/, '');
+const baseUrl = import.meta.env.VITE_DELCOM_API_URL.replace(/\/$/, '');
 
 export function getAccessToken(): string | null {
   if (typeof localStorage === 'undefined') return null;

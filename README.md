@@ -13,29 +13,28 @@ npm run dev
 
 Buka `http://localhost:3005`.
 
-## Build dan preview
+## Build dan jalankan produksi
 
+Bisa menggunakan Bun atau Node.js:
+
+Menggunakan Bun:
+```bash
+bun run check
+bun run build
+bun start
+```
+
+Menggunakan npm:
 ```bash
 npm run check
 npm run build
-npm run preview
+npm start
 ```
-
-## Deploy ke Vercel
-
-Proyek menggunakan `@sveltejs/adapter-vercel` melalui `svelte.config.js`.
-
-- Framework Preset: **SvelteKit**
-- Build Command: default atau `npm run build`
-- Install Command: default
-- Output Directory: default/kosong
-- Root Directory: folder root proyek (folder yang berisi `package.json`)
-
-Jangan commit folder `.vercel`, `.svelte-kit`, `node_modules`, atau file `.env`. Jika `.vercel` pernah ter-track di repository lama, lihat `VERCEL-DEPLOY-NOTES.md` untuk langkah menghapusnya dari Git index sebelum redeploy.
 
 ## API
 
-Secara lokal, aplikasi menggunakan `https://open-api.delcom.org/api/v1` secara default. Saat build di Vercel, `vite.config.ts` mengarahkan permintaan ke `/delcom-api`, yang diteruskan oleh `vercel.json` ke API Delcom.
+Aplikasi menggunakan `https://open-api.delcom.org/api/v1` secara default.
+Untuk mengubah base URL, sesuaikan nilai `VITE_DELCOM_BASEURL` di file `.env`. Jangan commit `.env` atau token rahasia.
 
 Untuk mengubah base URL lokal, salin `.env.example` menjadi `.env` dan sesuaikan nilainya. Jangan commit `.env` atau token rahasia.
 
