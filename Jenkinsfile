@@ -7,14 +7,14 @@ pipeline {
     skipDefaultCheckout(false)
   }
 
-  tools {
-    nodejs 'NodeJS 24'
-  }
 
   stages {
-    stage('Install Dependencies') {
+    stage('Check Runtime and Install Dependencies') {
       steps {
         sh '''set -eu
+          echo '=== Checking Node.js and npm available on the Jenkins agent ==='
+          node --version
+          npm --version
           if [ -f package-lock.json ]; then npm ci; else npm install; fi
         '''
       }
